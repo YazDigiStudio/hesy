@@ -23,6 +23,13 @@ export const colors = {
     white: '#ffffff',        // White text
   },
 
+  // Green colors (for HESY branding)
+  green: {
+    light: '#a8d5a8',        // Light green
+    medium: '#2c5f2d',       // Medium green
+    dark: '#1a3a1b',         // Dark green
+  },
+
   // Status colors
   status: {
     available: '#4caf50',    // Green for available animals
