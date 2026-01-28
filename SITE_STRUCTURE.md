@@ -5,9 +5,13 @@ Based on current hesy.fi website, reorganized for new architecture.
 ## Main Navigation
 
 ### 1. Kotia etsivät eläimet (Animals Seeking Homes) 🔥 FIREBASE
-- **Kissat** (Cats) - Dynamic animal listings from database
-- **Koirat** (Dogs) - Dynamic animal listings from database
-- **Muut eläimet** (Other Animals) - Dynamic animal listings from database
+
+**Dynaamiset listaukset (Dynamic Listings)**
+- Kissat (Cats) - Dynamic animal listings from database
+- Koirat (Dogs) - Dynamic animal listings from database
+- Muut eläimet (Other Animals) - Dynamic animal listings from database
+
+**Tietoa eläimen hankinnasta (Information)**
 - Tietoa eläimen hankinnasta (Info on Acquiring Animals) - Static page
 - Sopimusehdot (Contract Terms) - Static page
 - Sijoitusmaksut (Placement Fees) - Static page
@@ -22,12 +26,12 @@ Based on current hesy.fi website, reorganized for new architecture.
 - Kuukausilahjoitus (Monthly Giving) - Static page or payment form
 - Tilisiirto (Bank Transfer) - Static page with account details
 
-**Other Support**
+**Muut tavat auttaa (Other Support)**
 - Tavaralahjoitukset (Goods Donations) - Static page
 - Tavaratonkka (Thrift Store) - Static page with info/link
 - Testamentit (Bequests) - Static page
 - Vapaaehtoistyö (Volunteering) - Static page with form or email
-- **Liity jäseneksi** (Join as Member) 🔥 FIREBASE - Application with payment
+- Liity jäseneksi (Join as Member) 🔥 FIREBASE - Application with payment
 
 ### 3. Hesy (Organization)
 
@@ -59,13 +63,19 @@ Based on current hesy.fi website, reorganized for new architecture.
 - Rekisteriseloste (Privacy Notice) - Static page
 
 ### 4. Ajankohtaista (Current Events) 📝 DECAP CMS
+
+**Uutiset ja tiedotteet (News)**
 - Tiedotteet (Press Releases) - Blog posts
-- Tapahtumat (Events) - Blog posts or event listings
 - Lausunnot (Statements) - Blog posts
 - Blogi (Blog) - Blog posts
+
+**Tapahtumat ja uutiskirje (Events & Newsletter)**
+- Tapahtumat (Events) - Blog posts or event listings
 - Tilaa HESYn uutiskirje (Newsletter Signup) - Form
 
 ### 5. Yhteystiedot (Contact Info)
+
+**Ota yhteyttä (Get in Touch)**
 - Contact page - Static page with contact form
 
 ### 6. Language Switcher

@@ -10,10 +10,14 @@ type NavigationProps = {
   currentPath: string;
 };
 
+type MenuSubitem = { label: string; path: string };
+type MenuSection = { section: string; items: MenuSubitem[] };
+type MenuSubmenuItem = MenuSubitem | MenuSection;
+
 type MenuConfig = {
   label: string;
   path?: string;
-  submenu?: Array<{ label: string; path: string } | { section: string; items: Array<{ label: string; path: string }> }>;
+  submenu?: MenuSubmenuItem[];
 };
 
 export function Navigation({ currentLanguage, onLanguageChange, currentPath }: NavigationProps) {
@@ -31,16 +35,56 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuConfig = {
+  const menuConfig: Record<'fi' | 'en' | 'sv', MenuConfig[]> = {
     fi: [
       { label: 'Etusivu', path: '/' },
-      { label: 'Kotia etsivät eläimet', path: '/animals' },
+      {
+        label: 'Kotia etsivät eläimet',
+        path: '/animals',
+        submenu: [
+          {
+            section: 'Dynaamiset listaukset',
+            items: [
+              { label: 'Kissat', path: '/animals/cats' },
+              { label: 'Koirat', path: '/animals/dogs' },
+              { label: 'Muut eläimet', path: '/animals/other' },
+            ],
+          },
+          {
+            section: 'Tietoa eläimen hankinnasta',
+            items: [
+              { label: 'Tietoa eläimen hankinnasta', path: '/animals/info' },
+              { label: 'Sopimusehdot', path: '/animals/contract' },
+              { label: 'Sijoitusmaksut', path: '/animals/fees' },
+              { label: 'Pääkaupunkiseudun Löytöeläimet', path: '/animals/found' },
+            ],
+          },
+        ],
+      },
       {
         label: 'Näin autat',
         path: '/help',
         submenu: [
-          { label: 'Rahalahjoitukset', path: '/help/donations' },
-          { label: 'Muut tavat auttaa', path: '/help/other' },
+          {
+            section: 'Rahalahjoitukset',
+            items: [
+              { label: 'Verkkokauppa', path: '/help/shop' },
+              { label: 'MobilePay', path: '/help/mobilepay' },
+              { label: 'Tekstiviestilahjoitus', path: '/help/sms' },
+              { label: 'Kuukausilahjoitus', path: '/help/monthly' },
+              { label: 'Tilisiirto', path: '/help/transfer' },
+            ],
+          },
+          {
+            section: 'Muut tavat auttaa',
+            items: [
+              { label: 'Tavaralahjoitukset', path: '/help/goods' },
+              { label: 'Tavaratonkka', path: '/help/thrift-store' },
+              { label: 'Testamentit', path: '/help/bequests' },
+              { label: 'Vapaaehtoistyö', path: '/help/volunteer' },
+              { label: 'Liity jäseneksi', path: '/help/membership' },
+            ],
+          },
         ],
       },
       {
@@ -88,19 +132,90 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
           },
         ],
       },
-      { label: 'Ajankohtaista', path: '/news' },
-      { label: 'Yhteystiedot', path: '/contact' },
+      {
+        label: 'Ajankohtaista',
+        path: '/news',
+        submenu: [
+          {
+            section: 'Uutiset ja tiedotteet',
+            items: [
+              { label: 'Tiedotteet', path: '/news/press-releases' },
+              { label: 'Lausunnot', path: '/news/statements' },
+              { label: 'Blogi', path: '/news/blog' },
+            ],
+          },
+          {
+            section: 'Tapahtumat ja uutiskirje',
+            items: [
+              { label: 'Tapahtumat', path: '/news/events' },
+              { label: 'Tilaa HESYn uutiskirje', path: '/news/newsletter' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Yhteystiedot',
+        path: '/contact',
+        submenu: [
+          {
+            section: 'Ota yhteyttä',
+            items: [
+              { label: 'Yhteydenotto', path: '/contact' },
+            ],
+          },
+        ],
+      },
       { label: 'Verkkokauppa', path: 'https://shop.hesy.fi' },
     ],
     en: [
       { label: 'Home', path: '/' },
-      { label: 'Animals Seeking Homes', path: '/animals' },
+      {
+        label: 'Animals Seeking Homes',
+        path: '/animals',
+        submenu: [
+          {
+            section: 'Dynamic Listings',
+            items: [
+              { label: 'Cats', path: '/animals/cats' },
+              { label: 'Dogs', path: '/animals/dogs' },
+              { label: 'Other Animals', path: '/animals/other' },
+            ],
+          },
+          {
+            section: 'Information',
+            items: [
+              { label: 'Info on Acquiring Animals', path: '/animals/info' },
+              { label: 'Contract Terms', path: '/animals/contract' },
+              { label: 'Placement Fees', path: '/animals/fees' },
+              { label: 'Found Animals', path: '/animals/found' },
+            ],
+          },
+        ],
+      },
       {
         label: 'How You Can Help',
         path: '/help',
         submenu: [
-          { label: 'Donations', path: '/help/donations' },
-          { label: 'Other Ways', path: '/help/other' },
+          {
+            section: 'Monetary Donations',
+            items: [
+              { label: 'Online Shop', path: '/help/shop' },
+              { label: 'MobilePay', path: '/help/mobilepay' },
+              { label: 'SMS Donations', path: '/help/sms' },
+              { label: 'Monthly Giving', path: '/help/monthly' },
+              { label: 'Bank Transfer', path: '/help/transfer' },
+            ],
+          },
+          {
+            section: 'Other Support',
+            items: [
+              { label: 'Goods Donations', path: '/help/goods' },
+              { label: 'Thrift Store', path: '/help/thrift-store' },
+              { label: 'Bequests', path: '/help/bequests' },
+              { label: 'Volunteering', path: '/help/volunteer' },
+              { label: 'Join as Member', path: '/help/membership' },
+            ],
+          },
         ],
       },
       {
@@ -148,19 +263,90 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
           },
         ],
       },
-      { label: 'News', path: '/news' },
-      { label: 'Contact', path: '/contact' },
+      {
+        label: 'News',
+        path: '/news',
+        submenu: [
+          {
+            section: 'News',
+            items: [
+              { label: 'Press Releases', path: '/news/press-releases' },
+              { label: 'Statements', path: '/news/statements' },
+              { label: 'Blog', path: '/news/blog' },
+            ],
+          },
+          {
+            section: 'Events & Newsletter',
+            items: [
+              { label: 'Events', path: '/news/events' },
+              { label: 'Newsletter Signup', path: '/news/newsletter' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Contact',
+        path: '/contact',
+        submenu: [
+          {
+            section: 'Get in Touch',
+            items: [
+              { label: 'Contact', path: '/contact' },
+            ],
+          },
+        ],
+      },
       { label: 'Web Shop', path: 'https://shop.hesy.fi' },
     ],
     sv: [
       { label: 'Hem', path: '/' },
-      { label: 'Djur söker hem', path: '/animals' },
+      {
+        label: 'Djur söker hem',
+        path: '/animals',
+        submenu: [
+          {
+            section: 'Dynamiska listor',
+            items: [
+              { label: 'Katter', path: '/animals/cats' },
+              { label: 'Hundar', path: '/animals/dogs' },
+              { label: 'Andra djur', path: '/animals/other' },
+            ],
+          },
+          {
+            section: 'Information',
+            items: [
+              { label: 'Info om att skaffa djur', path: '/animals/info' },
+              { label: 'Avtalsvillkor', path: '/animals/contract' },
+              { label: 'Placeringsavgifter', path: '/animals/fees' },
+              { label: 'Hittade djur', path: '/animals/found' },
+            ],
+          },
+        ],
+      },
       {
         label: 'Så här hjälper du',
         path: '/help',
         submenu: [
-          { label: 'Donationer', path: '/help/donations' },
-          { label: 'Andra sätt', path: '/help/other' },
+          {
+            section: 'Donationer',
+            items: [
+              { label: 'Webshop', path: '/help/shop' },
+              { label: 'MobilePay', path: '/help/mobilepay' },
+              { label: 'SMS-donation', path: '/help/sms' },
+              { label: 'Månatlig donation', path: '/help/monthly' },
+              { label: 'Banköverföring', path: '/help/transfer' },
+            ],
+          },
+          {
+            section: 'Andra sätt',
+            items: [
+              { label: 'Varudonation', path: '/help/goods' },
+              { label: 'Skräpbutiken', path: '/help/thrift-store' },
+              { label: 'Testamenten', path: '/help/bequests' },
+              { label: 'Frivilligarbete', path: '/help/volunteer' },
+              { label: 'Bli medlem', path: '/help/membership' },
+            ],
+          },
         ],
       },
       {
@@ -208,8 +394,39 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
           },
         ],
       },
-      { label: 'Aktuellt', path: '/news' },
-      { label: 'Kontakt', path: '/contact' },
+      {
+        label: 'Aktuellt',
+        path: '/news',
+        submenu: [
+          {
+            section: 'Nyheter',
+            items: [
+              { label: 'Pressmeddelanden', path: '/news/press-releases' },
+              { label: 'Uttalanden', path: '/news/statements' },
+              { label: 'Blogg', path: '/news/blog' },
+            ],
+          },
+          {
+            section: 'Evenemang och nyhetsbrev',
+            items: [
+              { label: 'Evenemang', path: '/news/events' },
+              { label: 'Prenumerera på nyhetsbrev', path: '/news/newsletter' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Kontakt',
+        path: '/contact',
+        submenu: [
+          {
+            section: 'Kontakta oss',
+            items: [
+              { label: 'Kontakt', path: '/contact' },
+            ],
+          },
+        ],
+      },
       { label: 'Webbshop', path: 'https://shop.hesy.fi' },
     ],
   };
@@ -233,76 +450,21 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
   const getLinkColor = () => isHomePage ? 'white' : '#333';
   const getShadow = () => isHomePage ? '1px 1px 2px rgba(0,0,0,0.5)' : 'none';
 
-  const getAboutSections = () => {
-    const aboutItem = currentMenu.find(item => item.label === 'Hesy' || item.label === 'About HESY' || item.label === 'Om HESY');
-    return aboutItem?.submenu?.filter((item: any) => item.section) || [];
+  const getSections = (): MenuSection[] => {
+    if (!expandedSecondaryNav) return [];
+    const expandedItem = currentMenu.find(item => item.label === expandedSecondaryNav);
+    return expandedItem?.submenu?.filter((item): item is MenuSection => 'section' in item) || [];
   };
 
   const renderSecondaryNav = () => {
-    const sections = getAboutSections();
+    const sections = getSections();
     if (!expandedSecondaryNav || sections.length === 0) return null;
 
     return (
-      <div style={styles.secondaryNavRow}>
-        <div style={styles.secondaryNavContainer}>
-          {sections.map((section: any, idx: number) => (
-            <div key={idx} style={styles.secondaryNavItemWrapper} className="secondary-menu-item-wrapper">
-              <button
-                style={{
-                  ...styles.secondaryNavItem,
-                  color: getLinkColor(),
-                  textShadow: getShadow(),
-                  borderBottom: '2px solid transparent',
-                  paddingBottom: '4px',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                {section.section}
-              </button>
-
-              {/* Dropdown for section pages */}
-              <div style={styles.secondaryDropdown} className="secondary-dropdown">
-                <div style={styles.secondaryDropdownContent}>
-                  {section.items.map((link: any, linkIdx: number) => (
-                    <Link
-                      key={linkIdx}
-                      to={link.path}
-                      style={{
-                        ...styles.secondaryDropdownItem,
-                        color: currentPath === link.path ? colors.green.dark : '#333',
-                        fontWeight: currentPath === link.path ? 'bold' : 'normal',
-                      }}
-                      className="secondary-dropdown-item"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const renderDesktopMenu = () => (
-    <>
-      {currentMenu.map((item, idx) => {
-        const isAboutPage = item.label === 'Hesy' || item.label === 'About HESY' || item.label === 'Om HESY';
-        const isExpanded = expandedSecondaryNav === item.label;
-        
-        return (
-          <div key={idx} style={styles.menuItemWrapper} className="menu-item-wrapper">
+      <>
+        {sections.map((section: MenuSection, idx: number) => (
+          <div key={idx} style={styles.menuItemWrapper} className="secondary-menu-item-wrapper">
             <button
-              onClick={() => {
-                if (isAboutPage) {
-                  setExpandedSecondaryNav(isExpanded ? null : item.label);
-                }
-              }}
               style={{
                 ...styles.link,
                 color: getLinkColor(),
@@ -310,33 +472,83 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                borderBottom: isExpanded ? '2px solid #FDB913' : '2px solid transparent',
+                borderBottom: '2px solid transparent',
                 paddingBottom: '4px',
               }}
             >
-              {item.label}
+              {section.section}
             </button>
 
-            {/* Simple items like Help that have submenu but not sections */}
-            {item.submenu && !item.submenu[0]?.section && (
-              <div style={styles.megaMenu} className="mega-menu">
-                <div style={styles.megaMenuContent}>
-                  {item.submenu.map((subitem: any, subIdx: number) => (
-                    <Link
-                      key={subIdx}
-                      to={subitem.path}
-                      style={{
-                        ...styles.megaMenuItem,
-                        color: currentPath === subitem.path ? colors.green.dark : '#333',
-                        fontWeight: currentPath === subitem.path ? 'bold' : 'normal',
-                      }}
-                      className="mega-menu-item"
-                    >
-                      {subitem.label}
-                    </Link>
-                  ))}
-                </div>
+            {/* Dropdown for section pages */}
+            <div style={styles.secondaryDropdown} className="secondary-dropdown">
+              <div style={styles.secondaryDropdownContent}>
+                {section.items.map((link: MenuSubitem, linkIdx: number) => (
+                  <Link
+                    key={linkIdx}
+                    to={link.path}
+                    style={{
+                      ...styles.secondaryDropdownItem,
+                      color: currentPath === link.path ? colors.green.dark : '#333',
+                      fontWeight: currentPath === link.path ? 'bold' : 'normal',
+                    }}
+                    className="secondary-dropdown-item"
+                    onClick={() => {
+                      setExpandedSecondaryNav(null);
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
               </div>
+            </div>
+          </div>
+        ))}
+      </>
+    );
+  };
+
+  const renderDesktopMenu = () => (
+    <>
+      {currentMenu.map((item, idx) => {
+        const hasSection = item.submenu && item.submenu[0] && 'section' in item.submenu[0];
+        const isExpanded = expandedSecondaryNav === item.label;
+        
+        return (
+          <div key={idx} style={styles.menuItemWrapper} className="menu-item-wrapper">
+            {hasSection ? (
+              <button
+                onClick={() => {
+                  setExpandedSecondaryNav(isExpanded ? null : item.label);
+                }}
+                style={{
+                  ...styles.link,
+                  color: getLinkColor(),
+                  textShadow: getShadow(),
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  borderBottom: isExpanded ? '2px solid #FDB913' : '2px solid transparent',
+                  paddingBottom: '4px',
+                }}
+              >
+                {item.label}
+              </button>
+            ) : (
+              <Link
+                to={item.path || '#'}
+                style={{
+                  ...styles.link,
+                  color: getLinkColor(),
+                  textShadow: getShadow(),
+                  borderBottom: currentPath === item.path ? '2px solid #FDB913' : '2px solid transparent',
+                  paddingBottom: '4px',
+                }}
+                onClick={() => {
+                  setExpandedSecondaryNav(null);
+                }}
+              >
+                {item.label}
+              </Link>
             )}
           </div>
         );
@@ -382,20 +594,48 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
 
           {item.submenu && expandedMobileSubmenu === item.label && (
             <div style={styles.mobileSubmenu}>
-              {item.submenu.map((subitem, subIdx) => (
-                <Link
-                  key={subIdx}
-                  to={subitem.path}
-                  style={{
-                    ...styles.mobileLink,
-                    paddingLeft: '2rem',
-                    fontSize: '0.9rem',
-                  }}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {subitem.label}
-                </Link>
-              ))}
+              {item.submenu.map((subitem: MenuSubmenuItem, subIdx: number) => {
+                if ('section' in subitem) {
+                  // Render section items
+                  return (
+                    <div key={subIdx}>
+                      <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: colors.green.dark, paddingLeft: '2rem', paddingTop: '0.5rem' }}>
+                        {subitem.section}
+                      </div>
+                      {subitem.items.map((link: MenuSubitem, linkIdx: number) => (
+                        <Link
+                          key={linkIdx}
+                          to={link.path}
+                          style={{
+                            ...styles.mobileLink,
+                            paddingLeft: '3rem',
+                            fontSize: '0.9rem',
+                          }}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
+                  );
+                } else {
+                  // Regular submenu item (no sections)
+                  return (
+                    <Link
+                      key={subIdx}
+                      to={subitem.path}
+                      style={{
+                        ...styles.mobileLink,
+                        paddingLeft: '2rem',
+                        fontSize: '0.9rem',
+                      }}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {subitem.label}
+                    </Link>
+                  );
+                }
+              })}
             </div>
           )}
         </div>
@@ -458,15 +698,24 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
         </button>
       </div>
 
+      {/* Secondary Navigation Row (for About/Hesy sections) - integrated into same navbar */}
+      {expandedSecondaryNav && (
+        <div style={{
+          ...styles.secondaryNavRow,
+          backgroundColor: isHomePage ? hexToRgba(colors.grey.medium, scrollOpacity) : colors.grey.medium,
+        }}>
+          <div style={styles.secondaryNavContainer}>
+            {renderSecondaryNav()}
+          </div>
+        </div>
+      )}
+
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div data-mobile-menu>
           {renderMobileMenu()}
         </div>
       )}
-
-      {/* Secondary Navigation (for About/Hesy sections) */}
-      {renderSecondaryNav()}
     </nav>
   );
 }
@@ -481,14 +730,17 @@ const styles: Record<string, React.CSSProperties> = {
     left: 0,
     right: 0,
     zIndex: 100,
+    minHeight: 'auto',
   },
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '1rem 1rem',
+    padding: '0.5rem 1rem',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: '70px',
+    boxSizing: 'border-box',
   },
   logo: {
     display: 'flex',
@@ -621,17 +873,23 @@ const styles: Record<string, React.CSSProperties> = {
     paddingTop: '82px',
   },
   secondaryNavRow: {
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    borderTop: '1px solid rgba(0,0,0,0.1)',
-    borderBottom: '1px solid rgba(0,0,0,0.1)',
+    borderTop: 'none',
+    borderBottom: 'none',
     padding: '0',
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    position: 'absolute',
+    top: '70px',
+    left: 0,
   },
   secondaryNavContainer: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '0.75rem 1rem',
     display: 'flex',
     gap: '2rem',
+    padding: '0.25rem 1rem',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
   },
   secondaryNavItemWrapper: {
     position: 'relative',
