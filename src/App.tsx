@@ -33,7 +33,28 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<HomePage language={currentLanguage} />} />
           <Route path="/animals" element={<AnimalsPage language={currentLanguage} />} />
+          {/* Animals Subpages - Listings */}
+          <Route path="/animals/cats" element={<AboutSubpage pageName="Kissat" language={currentLanguage} />} />
+          <Route path="/animals/dogs" element={<AboutSubpage pageName="Koirat" language={currentLanguage} />} />
+          <Route path="/animals/other" element={<AboutSubpage pageName="Muut eläimet" language={currentLanguage} />} />
+          {/* Animals Subpages - Information */}
+          <Route path="/animals/info" element={<AboutSubpage pageName="Tietoa eläimen hankinnasta" language={currentLanguage} />} />
+          <Route path="/animals/contract" element={<AboutSubpage pageName="Sopimusehdot" language={currentLanguage} />} />
+          <Route path="/animals/fees" element={<AboutSubpage pageName="Sijoitusmaksut" language={currentLanguage} />} />
+          <Route path="/animals/found" element={<AboutSubpage pageName="Pääkaupunkiseudun Löytöeläimet" language={currentLanguage} />} />
           <Route path="/help" element={<HelpPage language={currentLanguage} />} />
+          {/* Help Subpages - Monetary Donations */}
+          <Route path="/help/shop" element={<AboutSubpage pageName="Verkkokauppa" language={currentLanguage} />} />
+          <Route path="/help/mobilepay" element={<AboutSubpage pageName="MobilePay" language={currentLanguage} />} />
+          <Route path="/help/sms" element={<AboutSubpage pageName="Tekstiviestilahjoitus" language={currentLanguage} />} />
+          <Route path="/help/monthly" element={<AboutSubpage pageName="Kuukausilahjoitus" language={currentLanguage} />} />
+          <Route path="/help/transfer" element={<AboutSubpage pageName="Tilisiirto" language={currentLanguage} />} />
+          {/* Help Subpages - Other Support */}
+          <Route path="/help/goods" element={<AboutSubpage pageName="Tavaralahjoitukset" language={currentLanguage} />} />
+          <Route path="/help/thrift-store" element={<AboutSubpage pageName="Tavaratonkka" language={currentLanguage} />} />
+          <Route path="/help/bequests" element={<AboutSubpage pageName="Testamentit" language={currentLanguage} />} />
+          <Route path="/help/volunteer" element={<AboutSubpage pageName="Vapaaehtoistyö" language={currentLanguage} />} />
+          <Route path="/help/membership" element={<AboutSubpage pageName="Liity jäseneksi" language={currentLanguage} />} />
           <Route path="/about" element={<AboutPage language={currentLanguage} />} />
           {/* About Subpages - Operations */}
           <Route path="/about/general" element={<AboutSubpage pageName="Yleistä" language={currentLanguage} />} />
@@ -59,7 +80,12 @@ function AppContent() {
           <Route path="/about/history" element={<AboutSubpage pageName="Historia" language={currentLanguage} />} />
           <Route path="/about/privacy" element={<AboutSubpage pageName="Rekisteriseloste" language={currentLanguage} />} />
           <Route path="/news" element={<NewsPage language={currentLanguage} />} />
+          {/* News Subpages */}
+          <Route path="/news/articles" element={<AboutSubpage pageName="Ajankohtaista" language={currentLanguage} />} />
+          <Route path="/news/events" element={<AboutSubpage pageName="Tapahtumat & Uutiskirje" language={currentLanguage} />} />
           <Route path="/contact" element={<ContactPage language={currentLanguage} />} />
+          {/* Contact Subpages */}
+          <Route path="/contact/get-in-touch" element={<AboutSubpage pageName="Ota yhteyttä" language={currentLanguage} />} />
         </Routes>
       </main>
 

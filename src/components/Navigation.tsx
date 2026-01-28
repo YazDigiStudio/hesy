@@ -35,6 +35,24 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Auto-expand secondary nav based on current path
+  useEffect(() => {
+    // Determine which menu item should be expanded based on current path
+    if (currentPath === '/' || currentPath === '/news' || currentPath === '/contact') {
+      setExpandedSecondaryNav(null);
+    } else if (currentPath.startsWith('/animals')) {
+      setExpandedSecondaryNav('Kotia etsivät eläimet');
+    } else if (currentPath.startsWith('/help')) {
+      setExpandedSecondaryNav('Näin autat');
+    } else if (currentPath.startsWith('/about')) {
+      setExpandedSecondaryNav('Hesy');
+    } else if (currentPath.startsWith('/news')) {
+      setExpandedSecondaryNav('Ajankohtaista');
+    } else if (currentPath.startsWith('/contact')) {
+      setExpandedSecondaryNav('Yhteystiedot');
+    }
+  }, [currentPath]);
+
   const menuConfig: Record<'fi' | 'en' | 'sv', MenuConfig[]> = {
     fi: [
       { label: 'Etusivu', path: '/' },
