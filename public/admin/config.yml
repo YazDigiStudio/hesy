@@ -1,0 +1,312 @@
+# Decap CMS Configuration for HESY Website
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Enable local development mode
+local_backend: true
+
+# Editorial workflow: draft → review → publish
+publish_mode: editorial_workflow
+
+# Media storage
+media_folder: "public/images/downloads"
+public_folder: "/images/downloads"
+
+collections:
+  # ====================
+  # FINNISH PAGES
+  # ====================
+  - name: "pages-fi"
+    label: "Sivut (Suomi)"
+    files:
+      # Home Page
+      - label: "Etusivu"
+        name: "home-fi"
+        file: "public/content/pages/home-fi.md"
+        fields:
+          - {label: "Otsikko", name: "title", widget: "string"}
+          - {label: "Alaotsikko", name: "subtitle", widget: "string"}
+          - {label: "Pääsisältö", name: "body", widget: "markdown"}
+          - {label: "Hero-kuva", name: "heroImage", widget: "image", required: false}
+
+      # About Page
+      - label: "Tietoa HESYstä"
+        name: "about-fi"
+        file: "public/content/pages/about-fi.md"
+        fields:
+          - {label: "Otsikko", name: "title", widget: "string"}
+          - {label: "Sisältö", name: "body", widget: "markdown"}
+
+      # Services/Info Pages
+      - label: "Tietoa eläimen hankinnasta"
+        name: "adoption-info-fi"
+        file: "public/content/pages/adoption-info-fi.md"
+        fields:
+          - {label: "Otsikko", name: "title", widget: "string"}
+          - {label: "Sisältö", name: "body", widget: "markdown"}
+
+      - label: "Sopimusehdot"
+        name: "terms-fi"
+        file: "public/content/pages/terms-fi.md"
+        fields:
+          - {label: "Otsikko", name: "title", widget: "string"}
+          - {label: "Sisältö", name: "body", widget: "markdown"}
+
+      - label: "Sijoitusmaksut"
+        name: "fees-fi"
+        file: "public/content/pages/fees-fi.md"
+        fields:
+          - {label: "Otsikko", name: "title", widget: "string"}
+          - {label: "Sisältö", name: "body", widget: "markdown"}
+
+      # Help/Support Pages
+      - label: "Rahalahjoitukset"
+        name: "donations-fi"
+        file: "public/content/pages/donations-fi.md"
+        fields:
+          - {label: "Otsikko", name: "title", widget: "string"}
+          - {label: "Sisältö", name: "body", widget: "markdown"}
+
+      - label: "Vapaaehtoistyö"
+        name: "volunteer-fi"
+        file: "public/content/pages/volunteer-fi.md"
+        fields:
+          - {label: "Otsikko", name: "title", widget: "string"}
+          - {label: "Sisältö", name: "body", widget: "markdown"}
+
+      # Contact Page
+      - label: "Yhteystiedot"
+        name: "contact-fi"
+        file: "public/content/pages/contact-fi.md"
+        fields:
+          - {label: "Otsikko", name: "title", widget: "string"}
+          - {label: "Sisältö", name: "body", widget: "markdown"}
+
+  # ====================
+  # ENGLISH PAGES
+  # ====================
+  - name: "pages-en"
+    label: "Pages (English)"
+    files:
+      - label: "Home Page"
+        name: "home-en"
+        file: "public/content/pages/home-en.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Subtitle", name: "subtitle", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+          - {label: "Hero Image", name: "heroImage", widget: "image", required: false}
+
+      - label: "About HESY"
+        name: "about-en"
+        file: "public/content/pages/about-en.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+
+      - label: "Adoption Information"
+        name: "adoption-info-en"
+        file: "public/content/pages/adoption-info-en.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+
+      - label: "Contract Terms"
+        name: "terms-en"
+        file: "public/content/pages/terms-en.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+
+      - label: "Adoption Fees"
+        name: "fees-en"
+        file: "public/content/pages/fees-en.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+
+      - label: "Donations"
+        name: "donations-en"
+        file: "public/content/pages/donations-en.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+
+      - label: "Volunteer"
+        name: "volunteer-en"
+        file: "public/content/pages/volunteer-en.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+
+      - label: "Contact"
+        name: "contact-en"
+        file: "public/content/pages/contact-en.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+
+  # ====================
+  # SWEDISH PAGES
+  # ====================
+  - name: "pages-sv"
+    label: "Sidor (Svenska)"
+    files:
+      - label: "Startsida"
+        name: "home-sv"
+        file: "public/content/pages/home-sv.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Undertitel", name: "subtitle", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
+          - {label: "Hero-bild", name: "heroImage", widget: "image", required: false}
+
+      - label: "Om HESY"
+        name: "about-sv"
+        file: "public/content/pages/about-sv.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
+
+      - label: "Adoptionsinformation"
+        name: "adoption-info-sv"
+        file: "public/content/pages/adoption-info-sv.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
+
+      - label: "Avtalsvillkor"
+        name: "terms-sv"
+        file: "public/content/pages/terms-sv.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
+
+      - label: "Adoptionsavgifter"
+        name: "fees-sv"
+        file: "public/content/pages/fees-sv.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
+
+      - label: "Donationer"
+        name: "donations-sv"
+        file: "public/content/pages/donations-sv.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
+
+      - label: "Volontärarbete"
+        name: "volunteer-sv"
+        file: "public/content/pages/volunteer-sv.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
+
+      - label: "Kontakt"
+        name: "contact-sv"
+        file: "public/content/pages/contact-sv.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
+
+  # ====================
+  # BLOG POSTS
+  # ====================
+  # Finnish Blog
+  - name: "blog-fi"
+    label: "Uutiset (Suomi)"
+    folder: "public/content/blog/fi"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Otsikko", name: "title", widget: "string"}
+      - {label: "Julkaisupäivä", name: "date", widget: "datetime"}
+      - {label: "Kuvituskuva", name: "featuredImage", widget: "image", required: false}
+      - {label: "Tiivistelmä", name: "excerpt", widget: "text", required: false}
+      - {label: "Sisältö", name: "body", widget: "markdown"}
+      - label: "Kategoria"
+        name: "category"
+        widget: "select"
+        options: ["Uutiset", "Tapahtumat", "Tiedotteet", "Lausunnot"]
+        default: "Uutiset"
+
+  # English Blog
+  - name: "blog-en"
+    label: "News (English)"
+    folder: "public/content/blog/en"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "featuredImage", widget: "image", required: false}
+      - {label: "Excerpt", name: "excerpt", widget: "text", required: false}
+      - {label: "Content", name: "body", widget: "markdown"}
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["News", "Events", "Press Releases", "Statements"]
+        default: "News"
+
+  # Swedish Blog
+  - name: "blog-sv"
+    label: "Nyheter (Svenska)"
+    folder: "public/content/blog/sv"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Titel", name: "title", widget: "string"}
+      - {label: "Publiceringsdatum", name: "date", widget: "datetime"}
+      - {label: "Utvald bild", name: "featuredImage", widget: "image", required: false}
+      - {label: "Sammanfattning", name: "excerpt", widget: "text", required: false}
+      - {label: "Innehåll", name: "body", widget: "markdown"}
+      - label: "Kategori"
+        name: "category"
+        widget: "select"
+        options: ["Nyheter", "Evenemang", "Pressmeddelanden", "Uttalanden"]
+        default: "Nyheter"
+
+  # ====================
+  # SITE SETTINGS
+  # ====================
+  - name: "settings"
+    label: "Asetukset / Settings"
+    files:
+      - label: "Site Information"
+        name: "site-info"
+        file: "public/content/settings/site-info.json"
+        fields:
+          - {label: "Site Title", name: "siteTitle", widget: "string", default: "HESY"}
+          - {label: "Site Description", name: "siteDescription", widget: "text"}
+          - {label: "Organization Name (FI)", name: "organizationNameFi", widget: "string"}
+          - {label: "Organization Name (EN)", name: "organizationNameEn", widget: "string"}
+          - {label: "Organization Name (SV)", name: "organizationNameSv", widget: "string"}
+          - {label: "Business ID", name: "businessId", widget: "string", default: "0201239-8"}
+
+      - label: "Contact Information"
+        name: "contact-info"
+        file: "public/content/settings/contact-info.json"
+        fields:
+          - {label: "Phone", name: "phone", widget: "string"}
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Address Line 1", name: "addressLine1", widget: "string"}
+          - {label: "Address Line 2", name: "addressLine2", widget: "string"}
+          - {label: "Phone Hours (FI)", name: "phoneHoursFi", widget: "string"}
+          - {label: "Phone Hours (EN)", name: "phoneHoursEn", widget: "string"}
+          - {label: "Phone Hours (SV)", name: "phoneHoursSv", widget: "string"}
+          - {label: "Shop Hours (FI)", name: "shopHoursFi", widget: "string"}
+          - {label: "Shop Hours (EN)", name: "shopHoursEn", widget: "string"}
+          - {label: "Shop Hours (SV)", name: "shopHoursSv", widget: "string"}
+
+      - label: "Social Media"
+        name: "social-media"
+        file: "public/content/settings/social-media.json"
+        fields:
+          - {label: "Facebook URL", name: "facebook", widget: "string", required: false}
+          - {label: "Instagram URL", name: "instagram", widget: "string", required: false}
+          - {label: "LinkedIn URL", name: "linkedin", widget: "string", required: false}
+          - {label: "TikTok URL", name: "tiktok", widget: "string", required: false}
+          - {label: "YouTube URL", name: "youtube", widget: "string", required: false}

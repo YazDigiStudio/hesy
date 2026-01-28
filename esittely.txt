@@ -1,0 +1,135 @@
+Miten uudet nettisivut toimivat HESYn henkilökunnan näkökulmasta
+
+Uudet nettisivut on suunniteltu helpottamaan arkea, vähentämään käsityötä ja parantamaan tietoturvaa. Sivusto toimii taustalla älykkäästi, mutta henkilökunnalle ja kävijöille se näkyy yksinkertaisena ja luotettavana palveluna.
+
+Eläinten tiedot – aina ajan tasalla
+
+HESYn henkilökunta hallitsee eläinten tietoja omassa suojatussa näkymässä:
+
+uuden eläimen lisääminen
+
+tietojen muokkaaminen
+
+kuvien lisääminen
+
+tilan vaihtaminen (vapaa, varattu, adoptoitu)
+
+👉 Muutokset näkyvät nettisivuilla heti.
+Ei odottelua, ei erillistä julkaisemista, ei teknisiä vaiheita.
+
+Tämä on tärkeää, koska eläinten tiedot muuttuvat usein päivän aikana.
+
+Jäseneksi liittyminen – maksu ensin, vasta sitten taustajärjestelmään
+
+Uudessa järjestelmässä jäseneksi liittyminen tapahtuu hallitusti ja turvallisesti:
+
+Käyttäjä luo itselleen tunnuksen ja vahvistaa sähköpostinsa
+
+Käyttäjä täyttää jäsenhakemuksen
+
+Jäsenmaksu maksetaan heti verkossa
+
+Vasta onnistuneen maksun jälkeen hakemus:
+
+tallennetaan
+
+ja siirretään automaattisesti HESYn taustajärjestelmään
+
+Mitä tämä tarkoittaa käytännössä?
+
+Taustajärjestelmään ei päädy maksamattomia tai keskeneräisiä hakemuksia
+
+Ei tarvitse tarkistaa käsin, onko maksu tullut
+
+Vähemmän epäselviä tapauksia ja jälkityötä
+
+Selkeä ja reilu prosessi myös hakijalle
+
+Henkilökunta näkee hakemukset vain, kun ne ovat valmiita ja maksettuja.
+
+Eläimen adoptointihakemus – kirjautuminen tuo vakavuutta
+
+Adoptiota hakeva henkilö:
+
+Kirjautuu sisään tai luo tunnuksen
+
+Täyttää adoptiolomakkeen valitulle eläimelle
+
+Lähettää hakemuksen
+
+Hakemus:
+
+tallentuu järjestelmään
+
+siirtyy automaattisesti HESYn taustajärjestelmään
+
+on yhdistetty tiettyyn käyttäjään ja tiettyyn eläimeen
+
+👉 Tämä vähentää merkittävästi “huvihakemuksia” ja puutteellisia yhteystietoja.
+
+Nettisivujen tekstit ja uutiset
+
+Varsinaiset nettisivujen tekstit (noin 50 sivua, kolmella kielellä) sekä uutiset ja ajankohtaiset asiat:
+
+muokataan erillisessä sisällönhallintanäkymässä
+
+muistuttaa perinteistä tekstieditoria (WordPress-tyyppinen kokemus)
+
+Kun tekstiä muokataan:
+
+sivusto päivittyy automaattisesti noin 2–3 minuutissa
+
+tämä koskee vain sisältösivuja, ei eläintietoja
+
+Miksi sivusto on jaettu kahteen osaan
+Asiat, jotka vaativat nopeutta → päivittyvät heti
+
+eläinten tiedot
+
+adoptiolomakkeet
+
+jäsenhakemukset
+
+maksujen käsittely
+
+Asiat, jotka vaativat huolellisuutta → päivittyvät harkiten
+
+esittelysivut
+
+ohjeet
+
+uutiset ja kampanjat
+
+Tämä yhdistää nopeuden, turvallisuuden ja hallittavuuden.
+
+Tietoturva ja luotettavuus
+
+Hakemukset vaativat kirjautumisen
+
+Sähköpostit vahvistetaan
+
+Maksu tarkistetaan automaattisesti
+
+Taustajärjestelmään ei ole suoraa pääsyä selaimesta
+
+Henkilötiedot liikkuvat salattuna
+
+👉 Tämä on merkittävä parannus verrattuna vanhaan lisäosapohjaiseen ratkaisuun.
+
+Yhteenveto henkilökunnalle
+
+Eläinten tiedot päivittyvät heti
+
+Jäsenhakemukset tulevat vain, kun maksu on hoidettu
+
+Adoptioprosessi on selkeä ja vakavasti otettava
+
+Vähemmän käsityötä ja virheitä
+
+Nettisivut ovat nopeammat, turvallisemmat ja helpommat ylläpitää
+
+Henkilökunta käyttää:
+
+yhtä näkymää eläimille ja hakemusten tarkasteluun
+
+toista näkymää nettisivujen tekstien muokkaamiseen
