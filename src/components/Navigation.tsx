@@ -60,23 +60,11 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
         label: 'Kotia etsivät eläimet',
         path: '/animals',
         submenu: [
-          {
-            section: 'Dynaamiset listaukset',
-            items: [
-              { label: 'Kissat', path: '/animals/cats' },
-              { label: 'Koirat', path: '/animals/dogs' },
-              { label: 'Muut eläimet', path: '/animals/other' },
-            ],
-          },
-          {
-            section: 'Tietoa eläimen hankinnasta',
-            items: [
-              { label: 'Tietoa eläimen hankinnasta', path: '/animals/info' },
-              { label: 'Sopimusehdot', path: '/animals/contract' },
-              { label: 'Sijoitusmaksut', path: '/animals/fees' },
-              { label: 'Pääkaupunkiseudun Löytöeläimet', path: '/animals/found' },
-            ],
-          },
+          { label: 'Eläimet', path: '/animals' },
+          { label: 'Tietoa eläimen hankinnasta', path: '/animals/info' },
+          { label: 'Sopimusehdot', path: '/animals/contract' },
+          { label: 'Sijoitusmaksut', path: '/animals/fees' },
+          { label: 'Pääkaupunkiseudun Löytöeläimet', path: '/animals/found' },
         ],
       },
       {
@@ -191,23 +179,11 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
         label: 'Animals Seeking Homes',
         path: '/animals',
         submenu: [
-          {
-            section: 'Dynamic Listings',
-            items: [
-              { label: 'Cats', path: '/animals/cats' },
-              { label: 'Dogs', path: '/animals/dogs' },
-              { label: 'Other Animals', path: '/animals/other' },
-            ],
-          },
-          {
-            section: 'Information',
-            items: [
-              { label: 'Info on Acquiring Animals', path: '/animals/info' },
-              { label: 'Contract Terms', path: '/animals/contract' },
-              { label: 'Placement Fees', path: '/animals/fees' },
-              { label: 'Found Animals', path: '/animals/found' },
-            ],
-          },
+          { label: 'Animals', path: '/animals' },
+          { label: 'Info on Acquiring Animals', path: '/animals/info' },
+          { label: 'Contract Terms', path: '/animals/contract' },
+          { label: 'Placement Fees', path: '/animals/fees' },
+          { label: 'Found Animals', path: '/animals/found' },
         ],
       },
       {
@@ -322,23 +298,11 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
         label: 'Djur söker hem',
         path: '/animals',
         submenu: [
-          {
-            section: 'Dynamiska listor',
-            items: [
-              { label: 'Katter', path: '/animals/cats' },
-              { label: 'Hundar', path: '/animals/dogs' },
-              { label: 'Andra djur', path: '/animals/other' },
-            ],
-          },
-          {
-            section: 'Information',
-            items: [
-              { label: 'Info om att skaffa djur', path: '/animals/info' },
-              { label: 'Avtalsvillkor', path: '/animals/contract' },
-              { label: 'Placeringsavgifter', path: '/animals/fees' },
-              { label: 'Hittade djur', path: '/animals/found' },
-            ],
-          },
+          { label: 'Djur', path: '/animals' },
+          { label: 'Info om att skaffa djur', path: '/animals/info' },
+          { label: 'Avtalsvillkor', path: '/animals/contract' },
+          { label: 'Placeringsavgifter', path: '/animals/fees' },
+          { label: 'Hittade djur', path: '/animals/found' },
         ],
       },
       {
@@ -474,14 +438,43 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
     return expandedItem?.submenu?.filter((item): item is MenuSection => 'section' in item) || [];
   };
 
+  const getFlatItems = (): MenuSubitem[] => {
+    if (!expandedSecondaryNav) return [];
+    const expandedItem = currentMenu.find(item => item.label === expandedSecondaryNav);
+    return expandedItem?.submenu?.filter((item): item is MenuSubitem => !('section' in item)) || [];
+  };
+
   const renderSecondaryNav = () => {
     const sections = getSections();
-    if (!expandedSecondaryNav || sections.length === 0) return null;
+    const flatItems = getFlatItems();
+    if (!expandedSecondaryNav || (sections.length === 0 && flatItems.length === 0)) return null;
 
     return (
       <>
+        {/* Render flat items (no sections) */}
+        {flatItems.map((item: MenuSubitem, idx: number) => (
+          <div key={`flat-${idx}`} style={styles.menuItemWrapper} className="secondary-menu-item-wrapper">
+            <Link
+              to={item.path}
+              style={{
+                ...styles.link,
+                color: getLinkColor(),
+                textShadow: getShadow(),
+                borderBottom: currentPath === item.path ? '2px solid #FDB913' : '2px solid transparent',
+                paddingBottom: '4px',
+              }}
+              onClick={() => {
+                setExpandedSecondaryNav(null);
+              }}
+            >
+              {item.label}
+            </Link>
+          </div>
+        ))}
+
+        {/* Render sections with dropdowns */}
         {sections.map((section: MenuSection, idx: number) => (
-          <div key={idx} style={styles.menuItemWrapper} className="secondary-menu-item-wrapper">
+          <div key={`section-${idx}`} style={styles.menuItemWrapper} className="secondary-menu-item-wrapper">
             <button
               style={{
                 ...styles.link,
@@ -528,29 +521,28 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
   const renderDesktopMenu = () => (
     <>
       {currentMenu.map((item, idx) => {
-        const hasSection = item.submenu && item.submenu[0] && 'section' in item.submenu[0];
+        const hasSection = item.submenu && (item.submenu.some((sub): sub is MenuSection => 'section' in sub) || item.submenu.some((sub): sub is MenuSubitem => !('section' in sub)));
         const isExpanded = expandedSecondaryNav === item.label;
         
         return (
           <div key={idx} style={styles.menuItemWrapper} className="menu-item-wrapper">
             {hasSection ? (
-              <button
-                onClick={() => {
-                  setExpandedSecondaryNav(isExpanded ? null : item.label);
-                }}
+              <Link
+                to={item.path || '#'}
                 style={{
                   ...styles.link,
                   color: getLinkColor(),
                   textShadow: getShadow(),
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
+                  textDecoration: 'none',
                   borderBottom: isExpanded ? '2px solid #FDB913' : '2px solid transparent',
                   paddingBottom: '4px',
                 }}
+                onClick={() => {
+                  setExpandedSecondaryNav(item.label);
+                }}
               >
                 {item.label}
-              </button>
+              </Link>
             ) : (
               <Link
                 to={item.path || '#'}

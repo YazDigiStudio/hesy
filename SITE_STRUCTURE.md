@@ -6,12 +6,7 @@ Based on current hesy.fi website, reorganized for new architecture.
 
 ### 1. Kotia etsivät eläimet (Animals Seeking Homes) 🔥 FIREBASE
 
-**Dynaamiset listaukset (Dynamic Listings)**
-- Kissat (Cats) - Dynamic animal listings from database
-- Koirat (Dogs) - Dynamic animal listings from database
-- Muut eläimet (Other Animals) - Dynamic animal listings from database
-
-**Tietoa eläimen hankinnasta (Information)**
+- Eläimet (Animals) - Dynamic animal listings from database
 - Tietoa eläimen hankinnasta (Info on Acquiring Animals) - Static page
 - Sopimusehdot (Contract Terms) - Static page
 - Sijoitusmaksut (Placement Fees) - Static page
