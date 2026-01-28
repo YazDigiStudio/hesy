@@ -501,6 +501,8 @@ export function Navigation({ currentLanguage, onLanguageChange, currentPath }: N
                       ...styles.secondaryDropdownItem,
                       color: currentPath === link.path ? colors.green.dark : '#333',
                       fontWeight: currentPath === link.path ? 'bold' : 'normal',
+                      borderBottom: currentPath === link.path ? `2px solid ${colors.green.dark}` : 'none',
+                      paddingBottom: currentPath === link.path ? '0.6rem' : '0.6rem',
                     }}
                     className="secondary-dropdown-item"
                     onClick={() => {
