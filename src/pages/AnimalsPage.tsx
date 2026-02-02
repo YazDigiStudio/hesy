@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 import { useAnimals } from '../hooks/useAnimals';
+import { useAuth } from '../hooks/useAuth';
 import type { Animal, AnimalSpecies } from '../types/animal';
 import { useTranslations } from '../hooks/useTranslations';
+import { AuthModal } from '../components/AuthModal';
+import { AdoptionApplicationModal } from '../components/AdoptionApplicationModal';
 
 type AnimalsPageProps = {
   language: 'fi' | 'en' | 'sv';
@@ -11,6 +14,12 @@ type AnimalsPageProps = {
 
 export function AnimalsPage({ language }: AnimalsPageProps) {
   const [selectedSpecies, setSelectedSpecies] = useState<AnimalSpecies | 'all'>('all');
+  const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showAdoptionModal, setShowAdoptionModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const { user } = useAuth();
 
   const t = useTranslations(language);
   const text = t.animals;
@@ -33,6 +42,23 @@ export function AnimalsPage({ language }: AnimalsPageProps) {
       case 'reserved': return text.reserved;
       case 'adopted': return text.adopted;
     }
+  };
+
+  const handleApplyClick = (animal: Animal) => {
+    setSelectedAnimal(animal);
+    if (!user) {
+      setShowAuthModal(true);
+    } else {
+      setShowAdoptionModal(true);
+    }
+  };
+
+  const handleAdoptionSuccess = () => {
+    setShowAdoptionModal(false);
+    setSelectedAnimal(null);
+    setSuccessMessage("Hakemuksesi on lähetetty! Otamme sinuun yhteyttä.");
+    // Poista viesti 5 sekunnin kuluttua
+    setTimeout(() => setSuccessMessage(null), 5000);
   };
 
   return (
@@ -152,13 +178,54 @@ export function AnimalsPage({ language }: AnimalsPageProps) {
                 <strong>{text.adoptionFee}:</strong> {animal.adoptionFee}€
               </p>
 
-              <button style={styles.contactButton}>
-                {text.contactUs}
+              <button
+                style={{
+                  ...styles.contactButton,
+                  ...(animal.status !== 'available' ? styles.buttonDisabled : {}),
+                }}
+                onClick={() => handleApplyClick(animal)}
+                disabled={animal.status !== 'available'}
+              >
+                {animal.status === 'available' ? 'Tee hakemus' : getStatusText(animal.status)}
               </button>
             </div>
           </div>
           ))}
         </div>
+      )}
+
+      {/* Onnistumisviesti */}
+      {successMessage && (
+        <div style={styles.successMessage}>
+          {successMessage}
+        </div>
+      )}
+
+      {/* Kirjautumismodaali */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => {
+          setShowAuthModal(false);
+          // Jos käyttäjä kirjautui, avaa adoptiolomake
+          if (user && selectedAnimal) {
+            setShowAdoptionModal(true);
+          } else {
+            setSelectedAnimal(null);
+          }
+        }}
+        language={language}
+      />
+
+      {/* Adoptiohakemusmodaali */}
+      {showAdoptionModal && selectedAnimal && (
+        <AdoptionApplicationModal
+          animal={selectedAnimal}
+          onClose={() => {
+            setShowAdoptionModal(false);
+            setSelectedAnimal(null);
+          }}
+          onSuccess={handleAdoptionSuccess}
+        />
       )}
     </div>
   );
@@ -328,5 +395,25 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 'clamp(2rem, 4vw, 3rem)',
     color: '#666',
     fontSize: 'clamp(1rem, 2vw, 1.1rem)',
+  },
+  buttonDisabled: {
+    backgroundColor: '#e0e0e0',
+    borderColor: '#e0e0e0',
+    color: '#999',
+    cursor: 'not-allowed',
+  },
+  successMessage: {
+    position: 'fixed',
+    bottom: '24px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: '#4caf50',
+    color: 'white',
+    padding: '16px 32px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+    zIndex: 1000,
+    fontSize: '16px',
+    fontWeight: 500,
   },
 };
