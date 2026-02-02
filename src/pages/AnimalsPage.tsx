@@ -1,7 +1,7 @@
 // Animals listing page
 
 import { useState } from 'react';
-import { mockAnimals, getAnimalsBySpecies } from '../data/mockAnimals';
+import { useAnimals } from '../hooks/useAnimals';
 import type { Animal, AnimalSpecies } from '../types/animal';
 import { useTranslations } from '../hooks/useTranslations';
 
@@ -15,9 +15,9 @@ export function AnimalsPage({ language }: AnimalsPageProps) {
   const t = useTranslations(language);
   const text = t.animals;
 
-  const filteredAnimals = selectedSpecies === 'all'
-    ? mockAnimals
-    : getAnimalsBySpecies(selectedSpecies);
+  const { animals, loading, error } = useAnimals(
+    selectedSpecies === 'all' ? undefined : selectedSpecies
+  );
 
   const getStatusColor = (status: Animal['status']) => {
     switch (status) {
@@ -42,6 +42,20 @@ export function AnimalsPage({ language }: AnimalsPageProps) {
         <h1 style={styles.title}>{text.title}</h1>
         <p style={styles.subtitle}>{text.subtitle}</p>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div style={styles.errorBox}>
+          <p style={styles.errorText}>{error}</p>
+        </div>
+      )}
+
+      {/* Loading State */}
+      {loading && (
+        <div style={styles.loadingBox}>
+          <p style={styles.loadingText}>Ladataan eläimiä...</p>
+        </div>
+      )}
 
       {/* Filters */}
       <div style={styles.filters}>
@@ -84,8 +98,14 @@ export function AnimalsPage({ language }: AnimalsPageProps) {
       </div>
 
       {/* Animal Grid */}
-      <div style={styles.grid}>
-        {filteredAnimals.map((animal) => (
+      {!loading && !error && (
+        <div style={styles.grid}>
+          {animals.length === 0 && (
+            <div style={styles.noAnimals}>
+              <p>Ei eläimiä valituilla hakuehdoilla.</p>
+            </div>
+          )}
+          {animals.map((animal: Animal) => (
           <div key={animal.id} style={styles.card}>
             {/* Animal Image */}
             <div style={styles.imageContainer}>
@@ -137,15 +157,9 @@ export function AnimalsPage({ language }: AnimalsPageProps) {
               </button>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Mock Console Log */}
-      <div style={styles.mockLog}>
-        <h3>🔧 Development Mode - Mock Data</h3>
-        <p>Animals are loaded from mock data. When Firebase is connected, this will be real-time data.</p>
-        <p>Total animals: {filteredAnimals.length}</p>
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -285,12 +299,34 @@ const styles: Record<string, React.CSSProperties> = {
     cursor: 'pointer',
     transition: 'all 0.2s',
   },
-  mockLog: {
-    backgroundColor: '#fff3cd',
-    border: '1px solid #ffc107',
+  loadingBox: {
+    textAlign: 'center',
+    padding: 'clamp(2rem, 4vw, 3rem)',
+    backgroundColor: '#f5f5f5',
+    borderRadius: '8px',
+    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
+  },
+  loadingText: {
+    fontSize: 'clamp(1rem, 2vw, 1.1rem)',
+    color: '#666',
+  },
+  errorBox: {
+    backgroundColor: '#ffebee',
+    border: '1px solid #f44336',
     borderRadius: '8px',
     padding: 'clamp(1rem, 2vw, 1.5rem)',
-    marginTop: 'clamp(1.5rem, 3vw, 2rem)',
+    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
+  },
+  errorText: {
+    color: '#c62828',
+    fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
+    margin: 0,
+  },
+  noAnimals: {
+    gridColumn: '1 / -1',
     textAlign: 'center',
+    padding: 'clamp(2rem, 4vw, 3rem)',
+    color: '#666',
+    fontSize: 'clamp(1rem, 2vw, 1.1rem)',
   },
 };
