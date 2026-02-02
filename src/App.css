@@ -14,14 +14,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-  /* Hide desktop menu, show mobile button */
-  nav div:has(a[href="/animals"]) {
+/* Spinner animation for payment processing */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Navigation responsive adjustments */
+/* Desktop navigation - show only on desktop (769px and above) */
+@media (min-width: 769px) {
+  .desktop-nav-wrapper {
+    display: block !important;
+  }
+  .mobile-nav-wrapper {
     display: none !important;
   }
+}
 
-  nav button {
+/* Mobile navigation - show only on mobile (768px and below) */
+@media (max-width: 768px) {
+  .desktop-nav-wrapper {
+    display: none !important;
+  }
+  .mobile-nav-wrapper {
     display: block !important;
   }
 }

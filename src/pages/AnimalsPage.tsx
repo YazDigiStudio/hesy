@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { mockAnimals, getAnimalsBySpecies } from '../data/mockAnimals';
 import type { Animal, AnimalSpecies } from '../types/animal';
+import { useTranslations } from '../hooks/useTranslations';
 
 type AnimalsPageProps = {
   language: 'fi' | 'en' | 'sv';
@@ -11,70 +12,8 @@ type AnimalsPageProps = {
 export function AnimalsPage({ language }: AnimalsPageProps) {
   const [selectedSpecies, setSelectedSpecies] = useState<AnimalSpecies | 'all'>('all');
 
-  const content = {
-    fi: {
-      title: 'Kotia etsivät eläimet',
-      subtitle: 'Kaikki eläimemme etsivät rakkautta ja pysyvää kotia',
-      filterAll: 'Kaikki',
-      filterCats: 'Kissat',
-      filterDogs: 'Koirat',
-      filterOther: 'Muut eläimet',
-      available: 'Vapaana',
-      reserved: 'Varattu',
-      adopted: 'Adoptoitu',
-      age: 'Ikä',
-      years: 'vuotta',
-      months: 'kuukautta',
-      adoptionFee: 'Adoptoimaksu',
-      goodWith: 'Sopii yhteen',
-      children: 'Lasten',
-      cats: 'Kissojen',
-      dogs: 'Koirien',
-      contactUs: 'Ota yhteyttä',
-    },
-    en: {
-      title: 'Animals Seeking Homes',
-      subtitle: 'All our animals are looking for love and a permanent home',
-      filterAll: 'All',
-      filterCats: 'Cats',
-      filterDogs: 'Dogs',
-      filterOther: 'Other Animals',
-      available: 'Available',
-      reserved: 'Reserved',
-      adopted: 'Adopted',
-      age: 'Age',
-      years: 'years',
-      months: 'months',
-      adoptionFee: 'Adoption Fee',
-      goodWith: 'Good with',
-      children: 'Children',
-      cats: 'Cats',
-      dogs: 'Dogs',
-      contactUs: 'Contact Us',
-    },
-    sv: {
-      title: 'Djur söker hem',
-      subtitle: 'Alla våra djur söker kärlek och ett permanent hem',
-      filterAll: 'Alla',
-      filterCats: 'Katter',
-      filterDogs: 'Hundar',
-      filterOther: 'Andra djur',
-      available: 'Tillgänglig',
-      reserved: 'Reserverad',
-      adopted: 'Adopterad',
-      age: 'Ålder',
-      years: 'år',
-      months: 'månader',
-      adoptionFee: 'Adoptionsavgift',
-      goodWith: 'Bra med',
-      children: 'Barn',
-      cats: 'Katter',
-      dogs: 'Hundar',
-      contactUs: 'Kontakta oss',
-    },
-  };
-
-  const text = content[language];
+  const t = useTranslations(language);
+  const text = t.animals;
 
   const filteredAnimals = selectedSpecies === 'all'
     ? mockAnimals
@@ -215,37 +154,37 @@ const styles: Record<string, React.CSSProperties> = {
   page: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '2rem 1rem',
+    padding: 'clamp(1rem, 3vw, 2rem) clamp(0.75rem, 2vw, 1rem)',
   },
   header: {
     textAlign: 'center',
-    marginBottom: '2rem',
+    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
   },
   title: {
-    fontSize: '2.5rem',
+    fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
     color: '#FDB913',
     marginBottom: '0.5rem',
     fontWeight: 'bold',
   },
   subtitle: {
-    fontSize: '1.1rem',
+    fontSize: 'clamp(1rem, 2vw, 1.1rem)',
     color: '#666',
   },
   filters: {
     display: 'flex',
-    gap: '1rem',
+    gap: 'clamp(0.5rem, 2vw, 1rem)',
     justifyContent: 'center',
-    marginBottom: '2rem',
+    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
     flexWrap: 'wrap',
   },
   filterButton: {
-    padding: '0.75rem 1.5rem',
+    padding: 'clamp(0.5rem, 1.5vw, 0.75rem) clamp(1rem, 2vw, 1.5rem)',
     border: '2px solid #FDB913',
     backgroundColor: 'white',
     color: '#1a1a1a',
     borderRadius: '8px',
     cursor: 'pointer',
-    fontSize: '1rem',
+    fontSize: 'clamp(0.875rem, 1.5vw, 1rem)',
     transition: 'all 0.2s',
     fontWeight: '500',
   },
@@ -256,9 +195,9 @@ const styles: Record<string, React.CSSProperties> = {
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: '2rem',
-    marginBottom: '2rem',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+    gap: 'clamp(1rem, 3vw, 2rem)',
+    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
   },
   card: {
     border: '1px solid #e0e0e0',
@@ -269,7 +208,7 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: 'white',
   },
   imageContainer: {
-    height: '250px',
+    height: 'clamp(200px, 30vw, 250px)',
     overflow: 'hidden',
     borderBottom: '1px solid #e0e0e0',
   },
@@ -282,32 +221,32 @@ const styles: Record<string, React.CSSProperties> = {
     position: 'absolute',
     top: '1rem',
     right: '1rem',
-    padding: '0.5rem 1rem',
+    padding: 'clamp(0.4rem, 1vw, 0.5rem) clamp(0.75rem, 1.5vw, 1rem)',
     borderRadius: '20px',
     color: 'white',
-    fontSize: '0.85rem',
+    fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)',
     fontWeight: 'bold',
   },
   cardContent: {
-    padding: '1.5rem',
+    padding: 'clamp(1rem, 2vw, 1.5rem)',
   },
   animalName: {
-    fontSize: '1.5rem',
+    fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)',
     marginBottom: '0.25rem',
     color: '#FDB913',
     fontWeight: 'bold',
   },
   breed: {
     color: '#666',
-    fontSize: '0.95rem',
+    fontSize: 'clamp(0.875rem, 1.5vw, 0.95rem)',
     marginBottom: '1rem',
   },
   detail: {
-    fontSize: '0.9rem',
+    fontSize: 'clamp(0.85rem, 1.5vw, 0.9rem)',
     marginBottom: '0.5rem',
   },
   description: {
-    fontSize: '0.9rem',
+    fontSize: 'clamp(0.85rem, 1.5vw, 0.9rem)',
     lineHeight: '1.6',
     color: '#555',
     marginBottom: '1rem',
@@ -318,30 +257,30 @@ const styles: Record<string, React.CSSProperties> = {
     flexWrap: 'wrap',
     alignItems: 'center',
     marginBottom: '1rem',
-    fontSize: '0.9rem',
+    fontSize: 'clamp(0.85rem, 1.5vw, 0.9rem)',
   },
   tag: {
     backgroundColor: '#FFF4D9',
     color: '#1a1a1a',
     padding: '0.25rem 0.75rem',
     borderRadius: '12px',
-    fontSize: '0.85rem',
+    fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)',
     border: '1px solid #FDB913',
   },
   fee: {
-    fontSize: '1rem',
+    fontSize: 'clamp(0.95rem, 1.5vw, 1rem)',
     color: '#FDB913',
     marginBottom: '1rem',
     fontWeight: 'bold',
   },
   contactButton: {
     width: '100%',
-    padding: '0.75rem',
+    padding: 'clamp(0.6rem, 1.5vw, 0.75rem)',
     backgroundColor: '#FDB913',
     color: '#1a1a1a',
     border: '2px solid #FDB913',
     borderRadius: '8px',
-    fontSize: '1rem',
+    fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
     fontWeight: 'bold',
     cursor: 'pointer',
     transition: 'all 0.2s',
@@ -350,8 +289,8 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: '#fff3cd',
     border: '1px solid #ffc107',
     borderRadius: '8px',
-    padding: '1.5rem',
-    marginTop: '2rem',
+    padding: 'clamp(1rem, 2vw, 1.5rem)',
+    marginTop: 'clamp(1.5rem, 3vw, 2rem)',
     textAlign: 'center',
   },
 };

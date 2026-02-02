@@ -1,42 +1,21 @@
 // Home page with hero image
 
+import { useTranslations } from '../hooks/useTranslations';
+
 type HomePageProps = {
   language: 'fi' | 'en' | 'sv';
 };
 
 export function HomePage({ language }: HomePageProps) {
-  const content = {
-    fi: {
-      heroTitle: 'Tervetuloa HESYn sivuille',
-      heroSubtitle: 'Helsingin eläinsuojeluyhdistys ry',
-      heroDescription: 'Autamme eläimiä löytämään rakastavan kodin jo vuodesta 1897',
-      adoptButton: 'Kotia etsivät eläimet',
-      helpButton: 'Näin voit auttaa',
-    },
-    en: {
-      heroTitle: 'Welcome to HESY',
-      heroSubtitle: 'Helsinki Humane Society',
-      heroDescription: 'Helping animals find loving homes since 1897',
-      adoptButton: 'Animals Seeking Homes',
-      helpButton: 'How You Can Help',
-    },
-    sv: {
-      heroTitle: 'Välkommen till HESY',
-      heroSubtitle: 'Helsingfors djurskyddsförening rf',
-      heroDescription: 'Vi hjälper djur att hitta kärleksfulla hem sedan 1897',
-      adoptButton: 'Djur söker hem',
-      helpButton: 'Så här kan du hjälpa',
-    },
-  };
-
-  const text = content[language];
+  const t = useTranslations(language);
+  const text = t.homepage;
 
   return (
     <div style={styles.page}>
       {/* Hero Section */}
       <div style={styles.hero}>
         <img
-          src="/images/frontpage.jpg"
+          src="/images/hero.jpg"
           alt="HESY"
           style={styles.heroImage}
         />
@@ -61,14 +40,10 @@ export function HomePage({ language }: HomePageProps) {
       <div style={styles.mainContent}>
         <div style={styles.container}>
           <h2 style={styles.sectionTitle}>
-            {language === 'fi' && 'Ajankohtaista'}
-            {language === 'en' && 'Current News'}
-            {language === 'sv' && 'Aktuellt'}
+            {text.newsTitle}
           </h2>
           <p style={styles.placeholder}>
-            {language === 'fi' && 'Tähän tulee uutisia ja tiedotteita...'}
-            {language === 'en' && 'News and announcements will appear here...'}
-            {language === 'sv' && 'Nyheter och meddelanden kommer att visas här...'}
+            {text.newsPlaceholder}
           </p>
         </div>
       </div>
@@ -82,7 +57,8 @@ const styles: Record<string, React.CSSProperties> = {
   },
   hero: {
     position: 'relative',
-    height: '600px',
+    minHeight: '500px',
+    height: 'clamp(500px, 70vh, 600px)',
     overflow: 'hidden',
   },
   heroImage: {
@@ -104,22 +80,23 @@ const styles: Record<string, React.CSSProperties> = {
   heroContent: {
     textAlign: 'center',
     color: 'white',
-    padding: '2rem',
+    padding: 'clamp(1rem, 4vw, 2rem)',
     maxWidth: '800px',
+    width: '100%',
   },
   heroTitle: {
-    fontSize: '3rem',
+    fontSize: 'clamp(1.75rem, 5vw, 3rem)',
     marginBottom: '0.5rem',
     textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
   },
   heroSubtitle: {
-    fontSize: '1.5rem',
+    fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
     marginBottom: '1rem',
     fontWeight: 'normal',
     textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
   },
   heroDescription: {
-    fontSize: '1.2rem',
+    fontSize: 'clamp(1rem, 2vw, 1.2rem)',
     marginBottom: '2rem',
     textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
   },
@@ -132,10 +109,10 @@ const styles: Record<string, React.CSSProperties> = {
   primaryButton: {
     backgroundColor: '#FDB913',
     color: '#1a1a1a',
-    padding: '1rem 2rem',
+    padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.25rem, 3vw, 2rem)',
     borderRadius: '8px',
     textDecoration: 'none',
-    fontSize: '1.1rem',
+    fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
     fontWeight: 'bold',
     transition: 'background-color 0.2s',
     boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
@@ -144,32 +121,32 @@ const styles: Record<string, React.CSSProperties> = {
   secondaryButton: {
     backgroundColor: 'rgba(255,255,255,0.9)',
     color: '#1a1a1a',
-    padding: '1rem 2rem',
+    padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.25rem, 3vw, 2rem)',
     borderRadius: '8px',
     textDecoration: 'none',
-    fontSize: '1.1rem',
+    fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
     fontWeight: 'bold',
     transition: 'all 0.2s',
     boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
     border: '2px solid white',
   },
   mainContent: {
-    padding: '4rem 0',
+    padding: 'clamp(2rem, 5vw, 4rem) 0',
     backgroundColor: '#f5f5f5',
   },
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '0 1rem',
+    padding: '0 clamp(1rem, 3vw, 2rem)',
   },
   sectionTitle: {
-    fontSize: '2rem',
+    fontSize: 'clamp(1.5rem, 4vw, 2rem)',
     color: '#FDB913',
     marginBottom: '1.5rem',
     fontWeight: 'bold',
   },
   placeholder: {
-    fontSize: '1.1rem',
+    fontSize: 'clamp(1rem, 2vw, 1.1rem)',
     color: '#666',
     lineHeight: '1.8',
   },

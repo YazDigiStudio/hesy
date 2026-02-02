@@ -1,26 +1,14 @@
 // News page - current events and announcements
 
+import { useTranslations } from '../hooks/useTranslations';
+
 type NewsPageProps = {
   language: 'fi' | 'en' | 'sv';
 };
 
 export function NewsPage({ language }: NewsPageProps) {
-  const content = {
-    fi: {
-      title: 'Ajankohtaista',
-      subtitle: 'Uutiset ja tiedotteet',
-    },
-    en: {
-      title: 'Current Events',
-      subtitle: 'News and announcements',
-    },
-    sv: {
-      title: 'Aktuellt',
-      subtitle: 'Nyheter och meddelanden',
-    },
-  };
-
-  const text = content[language];
+  const t = useTranslations(language);
+  const text = t.news;
 
   return (
     <div style={styles.page}>
@@ -28,9 +16,7 @@ export function NewsPage({ language }: NewsPageProps) {
         <h1 style={styles.title}>{text.title}</h1>
         <p style={styles.subtitle}>{text.subtitle}</p>
         <p style={styles.placeholder}>
-          {language === 'fi' && 'Sisältö tulossa...'}
-          {language === 'en' && 'Content coming soon...'}
-          {language === 'sv' && 'Innehåll kommer snart...'}
+          {t.common.contentComingSoon}
         </p>
       </div>
     </div>
@@ -40,27 +26,27 @@ export function NewsPage({ language }: NewsPageProps) {
 const styles: Record<string, React.CSSProperties> = {
   page: {
     minHeight: '100vh',
-    paddingTop: '80px',
+    paddingTop: 'clamp(60px, 10vw, 80px)',
     backgroundColor: '#f5f5f5',
   },
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '2rem 1rem',
+    padding: 'clamp(1.5rem, 3vw, 2rem) clamp(0.75rem, 2vw, 1rem)',
   },
   title: {
-    fontSize: '2.5rem',
+    fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
     color: '#FDB913',
-    marginBottom: '1rem',
+    marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
     fontWeight: 'bold',
   },
   subtitle: {
-    fontSize: '1.2rem',
+    fontSize: 'clamp(1rem, 2vw, 1.2rem)',
     color: '#666',
-    marginBottom: '2rem',
+    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
   },
   placeholder: {
-    fontSize: '1rem',
+    fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
     color: '#999',
     fontStyle: 'italic',
   },

@@ -2,164 +2,44 @@
 
 import { Link } from 'react-router-dom';
 import { colors } from '../config/colors';
+import { useTranslations } from '../hooks/useTranslations';
 
 type AboutPageProps = {
   language: 'fi' | 'en' | 'sv';
 };
 
 export function AboutPage({ language }: AboutPageProps) {
-  const translations = {
-    fi: {
-      pageTitle: 'HESY - Helsingin eläinsuojeluyhdistys',
-      operations: 'Toiminta',
-      people: 'Ihmiset',
-      locations: 'Paikat',
-      other: 'Muut',
-      operationsDesc: 'Tietoa HESYn toiminnasta ja säännöistä',
-      peopleDesc: 'Tutustu HESYn henkilökunnan ja hallitukseen',
-      locationsDesc: 'HESYn toimipisteet ja sijainnit',
-      otherDesc: 'Muita tärkeää tietoa',
-      sections: {
-        operations: [
-          { path: '/about/general', name: 'Yleistä' },
-          { path: '/about/rules', name: 'Säännöt' },
-          { path: '/about/reports', name: 'Vuosikertomukset' },
-          { path: '/about/member-associations', name: 'Jäsenyhdistykset' },
-          { path: '/about/collaboration', name: 'Yhteistyö' },
-          { path: '/about/faq', name: 'UKK' },
-        ],
-        people: [
-          { path: '/about/staff', name: 'Henkilökunta' },
-          { path: '/about/board', name: 'Hallitus' },
-        ],
-        locations: [
-          { path: '/about/center', name: 'HESY-keskus' },
-          { path: '/about/shop', name: 'HESY-Puoti' },
-          { path: '/about/arena', name: 'HESY-areena' },
-          { path: '/about/cemetery', name: 'Hautausmaa' },
-          { path: '/about/viik-animal-house', name: 'Viikin löytöeläintalo' },
-        ],
-        other: [
-          { path: '/about/award', name: 'Eläinsuojelun Topelius -palkinto' },
-          { path: '/about/magazine', name: 'Hesy-lehti' },
-          { path: '/about/brochures', name: 'Esitteet' },
-          { path: '/about/partners', name: 'Yhteistyökumppanit' },
-          { path: '/about/history', name: 'Historia' },
-          { path: '/about/privacy', name: 'Rekisteriseloste' },
-        ],
-      },
-    },
-    en: {
-      pageTitle: 'HESY - Helsinki Animal Welfare Association',
-      operations: 'Operations',
-      people: 'People',
-      locations: 'Locations',
-      other: 'Other',
-      operationsDesc: 'Information about HESY operations and rules',
-      peopleDesc: 'Meet our staff and board',
-      locationsDesc: 'HESY locations and facilities',
-      otherDesc: 'Other important information',
-      sections: {
-        operations: [
-          { path: '/about/general', name: 'General Info' },
-          { path: '/about/rules', name: 'Rules' },
-          { path: '/about/reports', name: 'Annual Reports' },
-          { path: '/about/member-associations', name: 'Member Associations' },
-          { path: '/about/collaboration', name: 'Collaboration' },
-          { path: '/about/faq', name: 'FAQ' },
-        ],
-        people: [
-          { path: '/about/staff', name: 'Staff' },
-          { path: '/about/board', name: 'Board' },
-        ],
-        locations: [
-          { path: '/about/center', name: 'HESY Center' },
-          { path: '/about/shop', name: 'HESY Shop' },
-          { path: '/about/arena', name: 'HESY Arena' },
-          { path: '/about/cemetery', name: 'Cemetery' },
-          { path: '/about/viik-animal-house', name: 'Viik Lost Animal House' },
-        ],
-        other: [
-          { path: '/about/award', name: 'Award' },
-          { path: '/about/magazine', name: 'Magazine' },
-          { path: '/about/brochures', name: 'Brochures' },
-          { path: '/about/partners', name: 'Partners' },
-          { path: '/about/history', name: 'History' },
-          { path: '/about/privacy', name: 'Privacy Notice' },
-        ],
-      },
-    },
-    sv: {
-      pageTitle: 'HESY - Helsingfors djurskyddsförening',
-      operations: 'Verksamhet',
-      people: 'Människor',
-      locations: 'Platser',
-      other: 'Övrigt',
-      operationsDesc: 'Information om HESYs verksamhet och regler',
-      peopleDesc: 'Lär känna vår personal och styrelse',
-      locationsDesc: 'HESYs lokaler och platser',
-      otherDesc: 'Annan viktig information',
-      sections: {
-        operations: [
-          { path: '/about/general', name: 'Allmänt' },
-          { path: '/about/rules', name: 'Regler' },
-          { path: '/about/reports', name: 'Årsrapporter' },
-          { path: '/about/member-associations', name: 'Medlemsföreningar' },
-          { path: '/about/collaboration', name: 'Samarbete' },
-          { path: '/about/faq', name: 'FAQ' },
-        ],
-        people: [
-          { path: '/about/staff', name: 'Personal' },
-          { path: '/about/board', name: 'Styrelse' },
-        ],
-        locations: [
-          { path: '/about/center', name: 'HESY-centrum' },
-          { path: '/about/shop', name: 'HESY-butiken' },
-          { path: '/about/arena', name: 'HESY-arena' },
-          { path: '/about/cemetery', name: 'Kyrkogård' },
-          { path: '/about/viik-animal-house', name: 'Viks djurhem' },
-        ],
-        other: [
-          { path: '/about/award', name: 'Pris' },
-          { path: '/about/magazine', name: 'Tidning' },
-          { path: '/about/brochures', name: 'Broschyrer' },
-          { path: '/about/partners', name: 'Partners' },
-          { path: '/about/history', name: 'Historia' },
-          { path: '/about/privacy', name: 'Integritetspolicy' },
-        ],
-      },
-    },
-  };
+  const allTranslations = useTranslations(language);
+  const t = allTranslations.about;
 
-  const t = translations[language];
 
   const categoryStyle = {
-    marginBottom: '48px',
+    marginBottom: 'clamp(32px, 5vw, 48px)',
   };
 
   const categoryTitleStyle = {
-    fontSize: '24px',
+    fontSize: 'clamp(20px, 3vw, 24px)',
     fontWeight: 'bold' as const,
     color: colors.green.dark,
-    marginBottom: '16px',
-    paddingBottom: '12px',
+    marginBottom: 'clamp(12px, 2vw, 16px)',
+    paddingBottom: 'clamp(8px, 1.5vw, 12px)',
     borderBottom: `2px solid ${colors.green.light}`,
   };
 
   const categoryDescStyle = {
-    fontSize: '14px',
+    fontSize: 'clamp(13px, 1.5vw, 14px)',
     color: '#666',
-    marginBottom: '20px',
+    marginBottom: 'clamp(16px, 2.5vw, 20px)',
   };
 
   const linksGridStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '16px',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
+    gap: 'clamp(12px, 2vw, 16px)',
   };
 
   const linkItemStyle = {
-    padding: '16px',
+    padding: 'clamp(12px, 2vw, 16px)',
     backgroundColor: '#f5f5f5',
     borderRadius: '8px',
     textDecoration: 'none',
@@ -205,8 +85,8 @@ export function AboutPage({ language }: AboutPageProps) {
   );
 
   return (
-    <div style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', minHeight: '100vh' }}>
-      <h1 style={{ fontSize: '36px', color: colors.green.dark, marginBottom: '40px' }}>
+    <div style={{ padding: 'clamp(24px, 5vw, 40px) clamp(16px, 3vw, 20px)', maxWidth: '1200px', margin: '0 auto', minHeight: '100vh' }}>
+      <h1 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: colors.green.dark, marginBottom: 'clamp(24px, 4vw, 40px)' }}>
         {t.pageTitle}
       </h1>
 
